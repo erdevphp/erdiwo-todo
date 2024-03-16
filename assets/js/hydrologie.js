@@ -51,6 +51,23 @@ class Pluviometrie {
         }
     }
 
+    displayCalculError() {
+        return `
+            <div class="d-none" id="error">
+                <h3>Oppssss, ERREUR DE DONNEE</h3>
+                <hr>
+                <p>
+                    Vérifier votre donnée pluviométrique en suivant les instructions suivantes : 
+                    <div class="d-flex justify-content-center">
+                        <ul class="text-left">
+                            <li>Un champ vide;</li>
+                            <li>Un champ contenant du texte.</li>
+                        </ul>
+                    </div>
+                </p>
+            </div>
+        `
+    }
 }
 
 window.onload = () => {
@@ -58,8 +75,23 @@ window.onload = () => {
     const addButton = document.querySelector('#addInputPluviometric')
     const removeButton = document.querySelector('#removeInputPluviometric')
     const pluvio = new Pluviometrie()
+
+    // Ajouts des 12 données par défaut
     pluvio.get12Inputs($dataPluvio)
 
     addButton.addEventListener('click', () => pluvio.get12Inputs($dataPluvio))
     removeButton.addEventListener('click', () => pluvio.removeInput())
+
+    document.addEventListener('paste', function (event) {
+        let clip = event.clipboardData || window.Clipboard
+        let pastedText = clip.getData('text')
+        let values = pastedText.split('\t') // On récupère les données copiées à partir d'un fichier Excel
+        let fields = []
+        for (let i = 1; i <= 12; i++) {
+            fields.push(document.querySelector(`.line1.column${i}`))
+        }
+        for (let j = 0; j < fields.length; j++) {
+            fields[j].value = values[j] ? values[j] : ''
+        }
+    })
 }
