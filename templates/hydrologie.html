@@ -3,8 +3,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <title>Todo app</title>
+    <link href="../assets/css/bootstrap/bootstrap.css" rel="stylesheet">
+    <title>Hydrologie</title>
     <style>
         html, body {
             font-family: 'Arial', sans-serif;
@@ -47,8 +47,8 @@
                     <i class="fa fa-info-circle"></i> &nbsp; Renseigner vos données pluviométiques
                 </div>
                 <div class="nav col-md-auto mb-2 justify-content-center mb-md-0">
-                    <a href="#" id="add" class="btn btn-success" type="button">+</a> &nbsp;
-                    <a href="#" id="del" class="btn btn-danger" type="button">-</a>
+                    <a href="#" id="addInputPluviometric" class="btn btn-success" type="button">+</a> &nbsp;
+                    <a href="#" id="removeInputPluviometric" class="btn btn-danger" type="button">-</a>
                 </div>
             </div>
             <div class="py-2">
@@ -78,45 +78,7 @@
                             <th>Dec</th>
                         </tr>
                     </thead>
-                    <tbody id="donnepm">
-                        <tr id="lasttr">
-                            <td class="">
-                                <input class="calcul w-100 ligne1 small col1" name="" type="text" value=""/>
-                            </td>
-                            <td class="">		
-                                <input class="calcul w-100 ligne1 small col2" name="" type="text" value="" />
-                            </td>
-                            <td class="">	
-                                <input class="calcul w-100 ligne1 small col3" name="" type="text" value="" />
-                            </td>
-                            <td class="">		
-                                <input class="calcul w-100 ligne1 small col4" name="" type="text" value="" />
-                            </td>
-                            <td class="">	
-                                <input class="calcul w-100 ligne1 small col5" name="" type="text" value="" />
-                            </td>
-                            <td class="">	
-                                <input class="calcul w-100 ligne1 small col6" name="" type="text" value="" />
-                            </td>
-                            <td class="">	
-                                <input class="calcul w-100 ligne1 small col7" name="" type="text" value="" />
-                            </td>
-                            <td class="">	
-                                <input class="calcul w-100 ligne1 small col8" name="" type="text" value="" />
-                            </td>
-                            <td class="">	
-                                <input class="calcul w-100 ligne1 small col9" name="" type="text" value="" />
-                            </td>
-                            <td class="">	
-                                <input class="calcul w-100 ligne1 small col10" name="" type="text" value="" />
-                            </td>
-                            <td class="">	
-                                <input class="calcul w-100 ligne1 small col11" name="" type="text" value="" />
-                            </td>
-                            <td class="">	
-                                <input class="calcul w-100 ligne1 small col12" name="" type="text" value="" />
-                            </td>            
-                        </tr>
+                    <tbody id="dataPluviometric">
                     </tbody>
                 </table>
                 <div>  
@@ -217,8 +179,7 @@
                 </p>
             </div>
         </div>
-    
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="../assets/js/hydrologie.js"></script>
 </body>
 </html>
