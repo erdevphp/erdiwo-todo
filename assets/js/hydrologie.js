@@ -1,76 +1,5 @@
-class Pluviometrie {
-
-    counter = 0
-    lastTr = 'lastTr'
-    /**
-     * @return <HTMLInputElements>
-    */
-    addInput(numberOfLine, numberOfColumn) {
-        // On crée l'élement input de type 'text' qui va etre ajouté dans le td
-        const $inputs = document.createElement('input')
-        $inputs.setAttribute('type', 'text')
-        $inputs.setAttribute('value', '')
-        // On associe l'input récemment crée à une classe afin de faire des calculs
-        $inputs.classList.add('small', 'w-100', `line${numberOfLine + 1}`, `column${numberOfColumn + 1}`)
-        return $inputs;
-    }
-
-    /**
-     * Cette méthode permet de créer 12 balises 'input' encapsulées chacunes dans une balise 'td' qu'on insère dans un 'tr' après
-     * Elle prend en paramètre l'élément parent pour afficher les inputs et mets à jour le counter à la fin
-     * @return <HTMLElement>
-     * @param HTMLElement
-     */
-    get12Inputs(parentElement) {
-        const $tr = document.createElement('tr')
-        $tr.setAttribute('id', this.lastTr) // On attribue un 'id' pour chaque nouveau 'tr'
-        if (this.counter !== 0) {
-            document.querySelector(`#${this.lastTr}`).removeAttribute('id') // On supprime les anciens 'id' du 'tr' précédent
-        }
-        for (let i = 11; i >= 0; i--) {
-            const $input = this.addInput(this.counter, i); // On fait appel à la méthode addInput pour créer les éléments 'inputs'
-            const $td = document.createElement('td')
-            $td.insertBefore($input, $td.firstChild)
-            $tr.insertBefore($td, $tr.firstChild)
-            parentElement.insertBefore($tr, parentElement.firstChild)
-        }
-        this.counter++
-    }
-
-    /**
-     * Cette méthode permet de supprimer les 12 derniers 'input' d'un 'tr' à partir de son idendifiant lastTr
-     */
-    removeInput() {
-        if (this.counter > 1) {
-            const $lastTr = document.querySelector(`#${this.lastTr}`)
-            $lastTr.nextElementSibling.setAttribute('id', this.lastTr)
-            $lastTr.remove()
-            this.counter--
-        } else {
-            alert('Vous ne pouvez pas supprimer les douzes entrées par défaut.')
-        }
-    }
-
-    displayCalculError() {
-        return `
-            <div class="d-none" id="error">
-                <h3>Oppssss, ERREUR DE DONNEE</h3>
-                <hr>
-                <p>
-                    Vérifier votre donnée pluviométrique en suivant les instructions suivantes : 
-                    <div class="d-flex justify-content-center">
-                        <ul class="text-left">
-                            <li>Un champ vide;</li>
-                            <li>Un champ contenant du texte.</li>
-                        </ul>
-                    </div>
-                </p>
-            </div>
-        `
-    }
-}
-
 window.onload = () => {
+    const $form = document.querySelector('#calculPluviometric')
     const $dataPluvio = document.querySelector('#dataPluviometric')
     const addButton = document.querySelector('#addInputPluviometric')
     const removeButton = document.querySelector('#removeInputPluviometric')
@@ -81,17 +10,6 @@ window.onload = () => {
 
     addButton.addEventListener('click', () => pluvio.get12Inputs($dataPluvio))
     removeButton.addEventListener('click', () => pluvio.removeInput())
-
-    document.addEventListener('paste', function (event) {
-        let clip = event.clipboardData || window.Clipboard
-        let pastedText = clip.getData('text')
-        let values = pastedText.split('\t') // On récupère les données copiées à partir d'un fichier Excel
-        let fields = []
-        for (let i = 1; i <= 12; i++) {
-            fields.push(document.querySelector(`.line1.column${i}`))
-        }
-        for (let j = 0; j < fields.length; j++) {
-            fields[j].value = values[j] ? values[j] : ''
-        }
-    })
+    document.addEventListener('paste', (event) => pluvio.managePastedValue(event))
+    $form.addEventListener('submit', (event) => pluvio.manageSubmit(event))
 }
