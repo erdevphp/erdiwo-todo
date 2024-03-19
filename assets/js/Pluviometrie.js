@@ -1,4 +1,4 @@
-export class Pluviometrie {
+class Pluviometrie {
 
     /**
      * Initialisation d'un compteur pour savoir le nombre de ligne des champs ajoutés par l'internaute
